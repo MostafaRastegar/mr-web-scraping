@@ -4,7 +4,7 @@ import pickle
 import time
 
 
-def is_element_present(driver, how, what):
+def isElementPresent(driver, how, what):
     try:
         driver.find_element(how, what)
     except NoSuchElementException as e:
@@ -14,9 +14,6 @@ def is_element_present(driver, how, what):
 
 def readCookies(driver, path):
     cookies = pickle.load(open(path, "rb"))
-    print('==============cookies===============')
-    print(cookies)
-    print('=============================')
     for cookie in cookies:
         driver.add_cookie(cookie)
 
@@ -28,16 +25,24 @@ def findElement(driver, xpath):
 def findElements(driver, xpath):
     return driver.find_elements(By.XPATH, xpath)
 
+def getText(element):
+    return element.text
 
-def recursiveListLoop(elementList, n):
+def getAttributeValue(attr):
+    def getAttribute(element):
+        return element.get_attribute(attr)
+    return getAttribute
+    
+
+def recursiveListLoop(elementList, n, getter):
     if(n == 0):
         return []
-    return [elementList[n - 1].text] + recursiveListLoop(elementList, n-1)
+    return [getter(elementList[n - 1])] + recursiveListLoop(elementList, n-1, getter)
 
 
-def release_list(drive, xpath):
+def releaseList(drive, xpath, getter):
     list_of_elements = findElements(drive, xpath)
-    return recursiveListLoop(list_of_elements, len(list_of_elements))
+    return recursiveListLoop(list_of_elements, len(list_of_elements), getter)
 
 
 def windowScrollTo(driver, n, screen_height):
