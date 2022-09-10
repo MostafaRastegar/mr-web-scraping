@@ -12,8 +12,11 @@ chrome_options = Options()
 chrome_options.add_argument('--headless')
 driver = webdriver.Chrome(ChromeDriverManager().install(), options=chrome_options)
 
+uri = "https://taaghche.com/filter?filter-category=183&filter-target=0&filter-bookType=0&filter-publisher=-106&order=7"
+
+
 print('======== > loading url')
-driver.get("https://taaghche.com/filter?filter-category=183&filter-target=0&filter-bookType=0&filter-publisher=-106&order=7")
+driver.get(uri)
 
 print('========> start pagination')
 infiniteScrollPage(driver, 1, 3)
