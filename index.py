@@ -21,7 +21,7 @@ print('======== > loading url')
 driver.get(uri)
 
 print('========> start pagination')
-hs.infiniteScrollPage(driver, 1, 0)
+hs.infiniteScrollPage(driver, 1, 3)
 
 print(' ================> create dataFrame')
 dict = {
