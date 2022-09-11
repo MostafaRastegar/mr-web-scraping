@@ -2,16 +2,10 @@ import pandas as pd
 import sys
 
 
-def dataFrameSwitch(dict, index):
-    if index:
-        return pd.DataFrame(dict, index)
-    return pd.DataFrame(dict)
-
-
 def csvGenerator(dict, file_name, index=None):
     if (index):
-        dataFrameSwitch(dict, index).to_csv(file_name)
-    return dict
+        return pd.DataFrame(dict, index).to_csv(file_name)
+    return pd.DataFrame(dict).to_csv(file_name)
 
 
 sys.modules[__name__] = csvGenerator
