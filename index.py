@@ -1,34 +1,21 @@
-from selenium import webdriver
-from selenium.webdriver.chrome.options import Options
-from webdriver_manager.chrome import ChromeDriverManager
+from helpers import hs, fg, csvGenerator, webDriver
 
-import time
-from helpers import releaseList, infiniteScrollPage, getText, getAttributeValue
-import pandas as pd
-
-
-
-chrome_options = Options()
-chrome_options.add_argument('--headless')
-driver = webdriver.Chrome(ChromeDriverManager().install(), options=chrome_options)
-
+driver = webDriver(['--headless'])
 uri = "https://taaghche.com/filter?filter-category=183&filter-target=0&filter-bookType=0&filter-publisher=-106&order=7"
 
 
-print('======== > loading url')
+print('========> loading url')
 driver.get(uri)
 
 print('========> start pagination')
-infiniteScrollPage(driver, 1, 3)
+hs.infiniteScrollPage(driver, 1, 3)
 
-print(' ================> create dataFrame')
+print(' ========> create dataFrame')
 dict = {
-    'title': releaseList(driver, "//a[contains(@class,'book_bookTitle')]",getText),
-    'author': releaseList(driver, "//a[contains(@class,'book_bookAuthor')]",getText),
-    'link': releaseList(driver, "//a[contains(@class,'book_bookTitle')]",getAttributeValue('href')),
+    'title': fg.releaseList(driver, "//a[contains(@class,'book_bookTitle')]", fg.getText),
+    'author': fg.releaseList(driver, "//a[contains(@class,'book_bookAuthor')]", fg.getText),
+    'link': fg.releaseList(driver, "//a[contains(@class,'book_bookTitle')]", fg.getAttributeValue('href')),
 }
-print(' ================> fineshed')
 
-df = pd.DataFrame(dict)
-# saving the dataframe
-df.to_csv('taghche-scroll.csv')
+print(' ========> fineshed')
+csvGenerator(dict, 'taghche-scroll.csv')
