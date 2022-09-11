@@ -1,27 +1,18 @@
-from selenium import webdriver
-from selenium.webdriver.chrome.options import Options
-from webdriver_manager.chrome import ChromeDriverManager
-
-import time
-# from helpers import releaseList, infiniteScrollPage, getText, getAttributeValue
-import pandas as pd
-
 from helpers import hs, fg
+import helpers.csvGenerator as csvGenerator
+import helpers.webDriver as webDriver
 
 
-chrome_options = Options()
-chrome_options.add_argument('--headless')
-driver = webdriver.Chrome(
-    ChromeDriverManager().install(), options=chrome_options)
-
+# uri = input("Enter path uri: ")
 uri = "https://taaghche.com/book/30242/%D9%86%D8%A7%D8%B1%DA%AF%DB%8C%D9%84"
 
-
-print('======== > loading url')
+driver = webDriver(['--headless'])
+print('========> loading url')
 driver.get(uri)
 
 
-# print(' ================> create dataFrame')
+print('========> fetching data')
+
 
 def getChildFirstSpanText(nth):
     return fg.findElement(
@@ -30,17 +21,16 @@ def getChildFirstSpanText(nth):
     )
 
 
-print(getChildFirstSpanText(1))
-
 dict = {
+    'name': fg.getText(fg.findElement(driver, "//h1")),
+    'price': fg.getText(fg.findElement(driver, "//div[contains(@class, 'price_price__')]/span[1]")),
     'pageTotals': fg.getText(getChildFirstSpanText(1)),
-    'price': fg.getText(getChildFirstSpanText(2)),
+    'paperPrice': fg.getText(getChildFirstSpanText(2)),
     'type': fg.getText(getChildFirstSpanText(3)),
     'published': fg.getText(getChildFirstSpanText(4)),
     'isbn': fg.getText(getChildFirstSpanText(5))
 }
-# print(' ================> fineshed')
 
-df = pd.DataFrame(dict, index=[0])
-# saving the dataframe
-df.to_csv('ex-book-details.csv')
+
+print('========> fineshed')
+csvGenerator(dict, 'ex-book-details.csv', ['book'])
