@@ -33,4 +33,4 @@ dict = {
 
 
 print('========> fineshed')
-csvGenerator(dict, 'ex-book-details.csv', ['book'])
+csvGenerator(dict, 'ex-book-details.csv', 'csv', ['book'])
