@@ -1,5 +1,7 @@
 from helpers import pth, cc, csvGenerator
 import pandas as pd
+from datetime import datetime
+now = datetime.now()  # current date and time
 
 
 joinedList = pth.pathJoinList('csv/divar/', 'ex-divar*.csv')
@@ -10,4 +12,6 @@ for strContain in ["بریانک", 'خلیج', 'سلیمانی']:
         cleanedDataFrame, ["enterprise", 'title'], strContain)
 
 # print(cleanedDataFrame)
-csvGenerator(cleanedDataFrame, 'merged.csv', 'csv/divar/')
+date_time = now.strftime("%m-%d-%Y")
+
+csvGenerator(cleanedDataFrame, date_time + '.csv', 'csv/divar/')
