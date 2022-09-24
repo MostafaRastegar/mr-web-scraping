@@ -13,7 +13,7 @@ def scrollCallback(n):
     dict = {
         'title': fg.releaseList(driver, "//h2[contains(@class,'kt-post-card__title')]", fg.getText),
         'price': fg.releaseList(driver, "//div[contains(@class,'kt-post-card__description')]", fg.getText),
-        'enterprise': fg.releaseList(driver, "//span[contains(@class,'kt-post-card__bottom-description')]", fg.getText),
+        'enterprise': (str(fg.releaseList(driver, "//span[contains(@class,'kt-post-card__bottom-description')]", fg.getText)).split(' در '))[1],
         'link': fg.releaseList(driver, "//div[@class='virtual-infinite-scroll__viewport']//a", fg.getAttributeValue('href')),
     }
     print(' ========> fineshed')
