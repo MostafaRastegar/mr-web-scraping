@@ -1,7 +1,7 @@
 from helpers import hs, fg, csvGenerator, webDriver
 
 driver = webDriver(['--headless'])
-uri = "https://divar.ir/s/tehran/buy-apartment?price=1500000000-1650000000&size=55-63&rooms=2&floor=-3&has-photo=true"
+uri = "https://divar.ir/s/tehran/buy-apartment?price=1500000000-1750000000&size=55-75&rooms=2&floor=-3&has-photo=true"
 
 
 print('========> loading url')

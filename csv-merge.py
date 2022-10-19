@@ -7,7 +7,7 @@ now = datetime.now()  # current date and time
 joinedList = pth.pathJoinList('csv/divar/', 'ex-divar*.csv')
 cleanedDataFrame = cc.dropDuplicates(joinedList, "link")
 
-for strContain in ["بریانک", 'خلیج', 'سلیمانی']:
+for strContain in ["بریانک", 'خلیج', 'سلیمانی', 'اندیشه','شهرزیبا', 'بهشتی']:
     cleanedDataFrame = cc.dropRowStrContains(
         cleanedDataFrame, ["enterprise", 'title'], strContain)
 
