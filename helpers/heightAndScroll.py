@@ -23,15 +23,16 @@ def getScreenHeight(driver):
         "return window.screen.height;")
 
 
-def recursiveScrollTo(driver, n, scroll_pause_time, screen_height):
-
+def recursiveScrollTo(driver, n, scroll_pause_time, screen_height, callBack):
+    callBack(n)
     windowScrollTo(driver, n, screen_height)
     time.sleep(scroll_pause_time)
     # Break the loop when the height we need to scroll to is larger than the total scroll height
     if (screen_height) * (n + 1) > bodyScrollHeight(driver):
         return False
-    recursiveScrollTo(driver, n + 1, scroll_pause_time, screen_height)
+    recursiveScrollTo(driver, n + 1, scroll_pause_time,
+                      screen_height, callBack)
 
 
-def infiniteScrollPage(driver, n, scroll_pause_time):
-    return recursiveScrollTo(driver, n, scroll_pause_time, getScreenHeight(driver))
+def infiniteScrollPage(driver, n, scroll_pause_time, callBack=lambda x=1: 1):
+    return recursiveScrollTo(driver, n, scroll_pause_time, getScreenHeight(driver), callBack)
